@@ -1,4 +1,5 @@
 __pycache__
-*.txt
+lab_env
+.venv/
 .mypy_cache
 .gitignore

@@ -1,0 +1,14 @@
+[tool.poetry]
+name = "ex0"
+version = "0.1.0"
+description = "The Sealed Laboratory"
+authors = ["Alchemist <alchemist@42.fr>"]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pandas = "*"
+numpy = "*"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
