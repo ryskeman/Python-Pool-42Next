@@ -1,3 +1,4 @@
 __pycache__
+*.txt
 .mypy_cache
 .gitignore
