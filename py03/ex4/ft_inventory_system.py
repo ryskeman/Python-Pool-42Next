@@ -45,7 +45,8 @@ def main() -> None:
     if len(inventory) > 0:
         for item in inventory.keys():
             qty = inventory[item]
-            percent = (round((qty / total_qty) * 100, 1) if total_qty > 0 else 0.0
+            percent = (
+                round((qty / total_qty) * 100, 1) if total_qty > 0 else 0.0
             )
             print(f"Item {item} represents {percent:.1f}%")
 
