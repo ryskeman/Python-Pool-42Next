@@ -15,7 +15,8 @@ ACHIEVEMENTS: list[str] = [
     "Survivor",
     "Treasure Hunter",
     "First Steps",
-    "Sharp Mind"
+    "Sharp Mind",
+    "Hidden Path Finder"
 ]
 
 

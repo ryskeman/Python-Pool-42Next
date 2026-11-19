@@ -7,7 +7,7 @@ def parse_inventory(args: list[str]) -> dict[str, int]:
 
     for arg in args:
         parts = arg.split(":")
-        if len(parts) != 2:
+        if len(parts) != 2 or not parts[0]:
             print(f"Error - invalid parameter '{arg}'")
             continue
 
@@ -20,6 +20,9 @@ def parse_inventory(args: list[str]) -> dict[str, int]:
 
         try:
             qty = int(qty_str)
+            if qty < 0:
+                print(f"Quantity error for {item}: negative quantity'{qty}")
+                continue
             inventory[item] = qty
         except ValueError as e:
             print(f"Quantity error for '{item}': {e}")
@@ -39,20 +42,29 @@ def main() -> None:
     total_qty = sum(inventory.values())
     print(f"Total quantity of the {len(inventory)} items: {total_qty}")
 
-    for item, qty in inventory.items():
-        percent = (qty / total_qty) * 100
-        print(f"Item {item} represents {percent:.1f}%")
+    if len(inventory) > 0:
+        for item in inventory.keys():
+            qty = inventory[item]
+            percent = round((qty / total_qty) * 100) if total_qty > 0 else 0.0
+            print(f"Item {item} represents {percent:.1f}%")
 
-    most_item = max(inventory, key=lambda k: inventory[k])
-    least_item = min(inventory, key=lambda k: inventory[k])
-    print(
-        f"Item most abundant: {most_item}"
-        f" with quantity {inventory[most_item]}"
-    )
-    print(
-        f"Item least abundant: {least_item}"
-        f" with quantity {inventory[least_item]}"
-    )
+        most_item = max(inventory, key=lambda k: inventory[k])
+        least_item = min(inventory, key=lambda k: inventory[k])
+
+        for item in inventory.keys():
+            if inventory[item] > inventory[most_item]:
+                most_item = item
+            if inventory[item] < inventory[least_item]:
+                least_item = item
+
+        print(
+            f"Item most abundant: {most_item}"
+            f" with quantity {inventory[most_item]}"
+        )
+        print(
+            f"Item least abundant: {least_item}"
+            f" with quantity {inventory[least_item]}"
+        )
 
     inventory.update({"magic_item": 1})
     print(f"Updated inventory: {inventory}")

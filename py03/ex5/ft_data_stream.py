@@ -23,7 +23,7 @@ def consume_event(
     while events:
         index = random.randrange(len(events))
         event = events.pop(index)
-        yield (event)
+        yield event
 
 
 def main() -> None:
