@@ -13,16 +13,15 @@ def main() -> None:
     print("=== Cyber Archives Recovery & Preservation ===")
     print(f"Accessing file '{filename}'")
 
-    lines: list[str] = []
+    content = ""
     f: IO[str] | None = None
     try:
         f = open(filename, "r")
-        lines = f.readlines()
+        content = f.read()
         print("---")
-        print()
-        for line in lines:
-            print(line, end="")
-        print()
+        print(content, end="")
+        if content and not content.endswith("\n"):
+            print()
         print("---")
 
     except OSError as e:
@@ -38,19 +37,19 @@ def main() -> None:
             print(f"File '{filename}' closed.")
             print()
 
-    transformed_lines = [line.rstrip("\n") + "#\n" for line in lines]
-    transformed_content = "".join(transformed_lines)
+    lines = content.splitlines()
+    transformed_content = "".join([line + "#\n" for line in lines])
 
     print("Transform data:")
     print("---")
     print()
-    print(f"{transformed_content}")
+    print(transformed_content, end="")
     print()
     print("---")
 
     sys.stdout.write("Enter new file name (or empty): ")
     sys.stdout.flush()
-    new_filename = sys.stdin.readline().strip("\n").strip()
+    new_filename = sys.stdin.readline().strip()
 
     if not new_filename:
         print("Not saving data.")
