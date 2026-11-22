@@ -5,7 +5,7 @@ from typing import IO
 
 def main() -> None:
     if len(sys.argv) != 2:
-        print("Usage: ft_ancient_text.py <file>", file=sys.stderr)
+        print("Usage: ft_stream_management.py <file>", file=sys.stderr)
         print()
         return
 
@@ -32,7 +32,7 @@ def main() -> None:
         return
 
     finally:
-        if f is not None and not f.closed:
+        if f is not None:
             f.close()
             print(f"File '{filename}' closed.")
             print()
@@ -49,7 +49,7 @@ def main() -> None:
 
     sys.stdout.write("Enter new file name (or empty): ")
     sys.stdout.flush()
-    new_filename = sys.stdin.readline().strip()
+    new_filename = sys.stdin.readline().strip("\r\n")
 
     if not new_filename:
         print("Not saving data.")
@@ -68,7 +68,7 @@ def main() -> None:
         )
         print("Data not saved.")
     finally:
-        if out_f is not None and not out_f.closed:
+        if out_f is not None:
             out_f.close()
 
 

@@ -5,7 +5,7 @@ from typing import IO
 
 def main() -> None:
     if len(sys.argv) != 2:
-        print("Usage: ft_ancient_text.py <file>")
+        print("Usage: ft_archive_creation.py <file>")
         print()
         return
 
@@ -29,7 +29,7 @@ def main() -> None:
         return
 
     finally:
-        if f is not None and not f.closed:
+        if f is not None:
             f.close()
             print(f"File '{filename}' closed.")
 
@@ -53,9 +53,9 @@ def main() -> None:
         out_f.write(transformed_content)
         print(f"Data saved in file '{new_filename}'.")
     except OSError as e:
-        print(f"Error writting file '{new_filename}': {e}")
+        print(f"Error writing file '{new_filename}': {e}")
     finally:
-        if out_f is not None and not out_f.closed:
+        if out_f is not None:
             out_f.close()
 
 

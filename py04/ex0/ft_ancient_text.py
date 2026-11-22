@@ -27,7 +27,7 @@ def main() -> None:
         print()
 
     finally:
-        if f is not None and not f.closed:
+        if f is not None:
             f.close()
             print(f"File '{filename}' closed.")
 
