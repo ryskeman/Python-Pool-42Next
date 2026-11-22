@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from .dark_validator import validate_ingredients
+from .dark_validator import dark_validate_ingredients
 
 
 def dark_spell_allowed_ingredients() -> list[str]:
@@ -7,7 +7,7 @@ def dark_spell_allowed_ingredients() -> list[str]:
 
 
 def dark_spell_record(spell_name: str, ingredients: str) -> str:
-    validation = validate_ingredients(ingredients)
+    validation = dark_validate_ingredients(ingredients)
     if validation == "- VALID" or not validation.endswith("INVALID"):
         return f"Spell recorded: {spell_name} ({validation})"
     else:
