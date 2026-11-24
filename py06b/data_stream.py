@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 from abc import ABC, abstractmethod
-from typing import Any, Sequence
+from typing import Any
 
 
 class DataProcessor(ABC):
@@ -47,7 +47,9 @@ class NumericProcessor(DataProcessor):
         else:
             return False
 
-    def ingest(self, data: int | float | Sequence[int | float]) -> None:
+    def ingest(
+        self, data: int | float | list[int] | list[float] | list[int | float]
+    ) -> None:
         if not self.validate(data):
             raise ValueError("Improper numeric data")
 

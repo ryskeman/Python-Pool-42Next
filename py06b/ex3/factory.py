@@ -23,8 +23,8 @@ class FlameFactory(CreatureFactory):
 
 
 class TransformCreatureFactory(CreatureFactory):
-    def create_base(self) -> Shiftling:
+    def create_base(self) -> Creature:
         return Shiftling()
 
-    def create_evolved(self) -> Morphagon:
+    def create_evolved(self) -> Creature:
         return Morphagon()
