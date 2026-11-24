@@ -23,11 +23,17 @@ def power_validator(
     def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
         @wraps(func)
         def wrapper(*args: Any, **kwargs: Any) -> Any:
-            power: int
+            power: int | float
             if "power" in kwargs:
                 power = kwargs["power"]
             else:
-                power = next((a for a in reversed(args) if type(a) is int), 0)
+                power = next(
+                    (
+                        a for a in args if isinstance(a, (int, float))
+                        and not isinstance(a, bool)
+                    ),
+                    0,
+                )
             if power >= min_power:
                 return func(*args, **kwargs)
             return "Insufficient power for this spell"
@@ -58,7 +64,10 @@ def retry_spell(
 class MageGuild:
     @staticmethod
     def validate_mage_name(name: str) -> bool:
-        return len(name) >= 3 and all(c.isalpha() or c.isspace() for c in name)
+        return (
+            len(name) >= 3
+            and all(c.isalpha() or c.isspace() for c in name)
+        )
 
     @power_validator(min_power=10)
     def cast_spell(self, spell_name: str, power: int) -> str:
@@ -74,6 +83,16 @@ def main() -> None:
         return "Fireball cast!"
 
     print(f"Result: {fireball()}")
+
+    print("\nTesting power validator...")
+
+    @power_validator(min_power=20)
+    def arcane_blast(target: str, power: int) -> str:
+        return f"Arcane blast hits {target} with {power} power"
+
+    print(arcane_blast("Dragon", 25))
+    print(arcane_blast("Dragon", 10))
+
     print("\nTesting retrying spell...")
 
     @retry_spell(max_attempts=3)
